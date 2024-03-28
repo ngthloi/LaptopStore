@@ -1,0 +1,86 @@
+﻿@model List<AppleWebsite.Models.Category>
+@{
+	ViewBag.Title = "Store";
+}
+<style>
+	.card {
+		transition: all 0.2s ease-in-out;
+	}
+
+		.card:hover {
+			transform: scale(1.02);
+			box-shadow: 0px 15px 15px rgb(128, 128, 120);
+		}
+		.card img{
+			
+			object-fit:contain;
+		}
+	.owl-dots {
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 1;
+		overflow: hidden;
+	}
+	.card-title {
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+		overflow: hidden;
+	}
+	.owl-carousel span {
+		font-size: 26px;
+	}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<div class="container-fluid">
+	@foreach (var item in Model)
+	{
+		<strong><a class="text-decoration-none text-dark text-uppercase  mt-5 ms-5 fw-bold display-5" href="@Url.Action("index",new {id= item.id_cate, controller="device"})">@item.name_cate</a></strong>
+		<div class="row ">
+			<div class="owl-carousel owl-theme px-5">
+				@foreach (var i in item.devices)
+				{
+					<div class="item " >
+						<div class="card p-4 m-5">
+								<img class="card-img-top img-fluid "  src="~/DeviceImage/@item.name_cate/@i.img" alt="Alternate Text" />
+							<div class="card-body justify-content-between flex-column d-flex">
+								<h5 class="card-title h6   fw-bold " title="@i.name_dev">@i.name_dev</h5>
+								<p class="card-text h6 flex-grow-2">Cost: @i.cost.ToString("C")</p>
+							</div>
+							@Html.ActionLink("Buy", "details", new { id = i.id_dev, controller = "device" }, new { @class = "flex-grow-1 card-img-bottom btn btn-outline-secondary" })
+
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	}
+
+</div>
+<script>
+	$('.owl-carousel').owlCarousel({
+		loop: true,
+		margin: 10,
+		nav: true,
+		responsive: {
+			0: {
+				items: 1
+			},
+			600: {
+				items: 2
+			},
+			1200: {
+				items: 3
+			},
+			1500: {
+				items: 4
+			},
+			1800: {
+				items: 5
+			}
+		}
+	})
+</script>
+

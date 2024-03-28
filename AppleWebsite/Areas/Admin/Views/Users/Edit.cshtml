@@ -1,0 +1,79 @@
+﻿@model AppleWebsite.Identity.AppUser
+@{
+	ViewBag.Title = "Thông tin người dùng";
+}
+<div class="container rounded bg-white mt-5">
+	<a href="../" class="btn-close pull-right mt-5 me-4 shadow-none"></a>
+
+	<div class="row">
+		<div class="col-md-3 border-right">
+			<div class="d-flex flex-column align-items-center text-center p-3 py-5">
+				@if (Model.imgURL == null)
+				{
+					<img class="rounded-circle mt-5" width="150px" src="~/Avatar/default_user.jpg">
+				}
+				else
+				{
+					<img class="rounded-circle mt-5" width="150px" src="~/Avatar/@Model.imgURL" alt="">
+				}
+				<span>
+				</span>
+				<span>@Model.Fullname</span>
+				<span class="text-black-50 ">@Model.Email</span>
+			</div>
+		</div>
+
+		<div class="col-md-8 border-right ">
+			<div class="p-3 py-5">
+				<div class="d-flex justify-content-between align-items-center mb-3">
+					<h4 class="text-right">Cài đặt thông tin</h4>
+				</div>
+				@using (Html.BeginForm("Edit", "Users", new { area = "admin" }, FormMethod.Post, new { @class = "", enctype = "multipart/form-data" }))
+				{
+					<div class="row mt-3">
+						<div class="col-md-12 mt-3">
+							<label class="labels">Tài khoản</label>
+							@Html.TextBoxFor(row => row.UserName, new { @class = "form-control shadow-none", @readonly = "", type = "text", placeholder = "Tài khoản", value = Model.UserName })
+						</div>
+						<div class="col-md-12 mt-3">
+							<label class="labels">Họ và tên</label>
+							@Html.TextBoxFor(row => row.Fullname, new { @class = "form-control shadow-none", type = "text", placeholder = "Họ tên", value = Model.Fullname })
+
+						</div>
+						<div class="col-md-12 mt-3">
+							<label class="label">Ngày sinh</label>
+							@{
+								string s = "";
+								if (Model.Birthday != null)
+								{
+
+									s = Model.Birthday.Value.ToString("yyyy-MM-dd");
+								}
+							}
+
+							@Html.TextBoxFor(row => row.Birthday, new { @class = "form-control shadow-none", @Type = "date", placeholder = "Ngày sinh", @Value = @s })
+						</div>
+						<div class="col-md-12 mt-3">
+							<label class="labels">Email</label>
+							@Html.TextBoxFor(row => row.Email, new { @class = "form-control shadow-none", type = "Email", placeholder = "Email", value = Model.Email })
+						</div>
+						<div class="col-md-12 mt-3">
+							<label class="labels">Số điện thoại</label>
+							@Html.TextBoxFor(row => row.PhoneNumber, new { @class = "form-control shadow-none", type = "number", placeholder = "Số điện thoại", value = Model.PhoneNumber })
+						</div>
+						<div class="col-md-12 mt-3">
+							<label class="labels">Ảnh cá nhân</label>
+							@Html.TextBoxFor(row => row.imgURL, "", new { @class = "form-control shadow-none", type = "file", name = "imgURL", accept = "image/*" })
+						</div>
+
+					</div>
+
+					<div class="mt-5 text-center">
+						<button class="btn btn-secondary profile-button shadow-none" type="submit">Lưu hồ sơ</button>
+					</div>
+				}
+
+			</div>
+		</div>
+	</div>
+</div>

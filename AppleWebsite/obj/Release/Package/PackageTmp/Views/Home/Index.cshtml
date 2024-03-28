@@ -1,0 +1,114 @@
+﻿
+@{
+	ViewBag.Title = "Apple";
+	Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<style>
+	.hero {
+		transition: transform 0.2s ease-in-out;
+		overflow: hidden;
+	}
+
+	figure {
+	}
+
+	
+
+	.hero figure {
+		object-fit: cover;
+	}
+
+	.btn:hover {
+		transition: transform 0.2s ease-in-out;
+		transform:scale(1.05);
+	}
+</style>
+<div class="container-fluid px-0 ">
+	<div class="hero" href="#" style="position:relative;">
+		<figure class="img-fluid mx-0" style=" background-image: url(/DeviceAppleImage/hero_ipad.jpg);width:100vw; margin:auto; min-height:80vh; background-position: center; background-repeat: no-repeat; background-size:cover; position: relative; ">
+		</figure>
+		<div class="hero-text" style=" text-align: center; position: absolute; top: 23%; left: 70%; transform: translate(-50%, -50%); color: black;">
+			<strong class="display-6" style="font-size:50px">iPad</strong>
+			<h4>Lovable. Drawable. Magical.</h4>
+			<div class="hero-link justify-content-evenly" style="display:flex; justify-content:center; gap:10px;">
+				<a class="btn btn-outline-dark" href="~/device/index/2">Buy now</a>
+
+			</div>
+		</div>
+	</div>
+	<div class="hero" href="#" style="position:relative;">
+		<figure class="m-0" style=" background-image: url(/DeviceAppleImage/hero_iphone.jpg); width: 100vw; margin: auto; min-height: 75vh; background-position: center; background-repeat: no-repeat; background-size: cover; position: relative; overflow: hidden;">
+		</figure>
+		<div class="hero-text" style=" text-align: center; position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%); color: white;">
+			<strong class="display-6" style="font-size:50px">iPhone</strong>
+			<h4>Probeyond</h4>
+			<div class="hero-link justify-content-evenly" style="display:flex; justify-content:center; gap:10px;">
+				<a class="btn btn-outline-light" href="~/device/index/1">Buy now</a>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="row container-fluid px-0 mx-0 " style="width:100vw;">
+			<div class="col-lg-6 col-md-12 hero p-0" style="position:relative;">
+				<figure class="m-0" style=" background-image: url(/DeviceAppleImage/hero_applewatch.jpg); width: 100%; height: 80vh; background-position: center; background-repeat: no-repeat; background-size: cover; position: relative; overflow: hidden;">
+				</figure>
+				<div class="hero-text" style=" text-align: center; position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%); color: black;">
+					<strong class="display-6" style="font-size:50px">Apple Watch</strong>
+					<h4>Adventure waits</h4>
+					<div class="hero-link justify-content-evenly" style="display:flex; justify-content:center; gap:10px;">
+						<a class="btn btn-outline-dark" href="~/device/index/5">Buy now</a>
+					</div>
+				</div>
+			</div>
+			<div class="hero col-lg-6 col-md-12 p-0" style="position:relative;">
+				<figure class="m-0" style=" background-image: url(/DeviceAppleImage/hero_airpod.jpg); width: 100%; height: 85vh; background-position: center; background-repeat: no-repeat; background-size: cover; position: relative; overflow: hidden; ">
+				</figure>
+				<div class="hero-text" style=" text-align: center; position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%); color: white;">
+					<strong class="display-6" style="font-size:50px">Airpod Pro</strong>
+					<h4>Rebuilt from the sound up.</h4>
+					<div class="hero-link justify-content-evenly" style="display:flex; justify-content:center; gap:20px;">
+						<a class="btn btn-outline-light" href="~/device/index/4">Buy now</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		<div class="row container-fluid px-0 mx-0"  style="width:100vw ;">
+			<div class="col-lg-6 col-md-12 hero p-0" href="#" style="position:relative;">
+				<figure class="m-0 me-1" style=" background-image: url(/DeviceAppleImage/hero_ipadpro.jpg); width: 100%; height: 85vh; background-position: center; background-repeat: no-repeat; background-size: cover; position: relative; overflow: hidden; ">
+				</figure>
+				<div class="hero-text" style=" text-align: center; position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%); color: white;">
+					<strong class="display-6" style="font-size:50px">iPad Pro</strong>
+					<h4>Supercharged By <span class=" btn btn-outline-light">M2</span></h4>
+					<div class="hero-link justify-content-evenly" style="display:flex; justify-content:center; gap:10px;">
+						<a class="btn btn-outline-light" href="~/device/index/2">Buy now</a>
+
+					</div>
+				</div>
+			</div>
+			<div class="hero col-lg-6 col-md-12 p-0" href="#" style="position:relative;">
+				<figure class="m-0" style=" background-image: url(/DeviceAppleImage/hero_accessories.jpg); width: 100%; height: 80vh; background-position: center; background-repeat: no-repeat; background-size: cover; position: relative; overflow: hidden; ">
+				</figure>
+				<div class="hero-text d-none d-xl-block" style=" text-align: center; position: absolute; top: 10%; left: 50%; transform: translate(-50%, -50%); color: black;">
+					<strong class="display-6" style="font-size:50px">Accessories</strong>
+					<h4>Mix. Match. MagSafe.</h4>
+					<div class="hero-link justify-content-evenly" style="display:flex; justify-content:center; gap:10px;">
+						<a class="btn btn-outline-dark" href="~/device/index/6">Buy now</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="hero" href="#" style="position:relative;">
+		<figure class="mx-0 " style=" background-image: url(/DeviceAppleImage/hero_macbook.jpg); width: 100vw; margin: auto; min-height: 100vh; background-position: center; background-repeat: no-repeat; background-size: auto; position: relative; background-color: #000;">
+		</figure>
+		<div  class="hero-text d-none d-xl-block" style=" text-align: center; position: absolute; top: 15%; left: 50%; transform: translate(-50%, -50%); color: white;">
+			<strong class="display-6"  style="font-size:50px;">Macbook Pro</strong>
+			<h4>Pro anywhere.</h4>
+			<div class="hero-link justify-content-evenly" style="display:flex; justify-content:center; gap:10px;">
+				<a class="btn btn-outline-light" href="~/device/index/3">Buy now</a>
+			</div>
+		</div>
+	</div>
+</div>

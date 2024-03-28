@@ -1,0 +1,56 @@
+﻿@model AppleWebsite.ViewModel.LoginVM
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutPage_Sign_in_up.cshtml";
+}
+
+<div class="main pb-0 " style="min-height:100vh;">
+    <section class="sign-in">
+        <div class="container">
+            <div class="signin-content">
+                <div class="signin-image">
+                    <figure><img src="~/DeviceImage/th.jpg" alt="sing up image"></figure>
+                </div>
+                <div class="signin-form">
+                    <h2 class="form-title">Đăng nhập</h2>
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "register-form" }))
+                    {
+                        <div class="form-main">
+                            <div class="form-group">
+                                <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                @Html.TextBoxFor(temp => temp.UserName, new { placeholder = "Tài khoản", autocomplete = "username" })
+                            </div>
+                            @Html.ValidationMessageFor(temp => temp.UserName)
+                        </div>
+                        <div class="form-main">
+                            <div class="form-group">
+                                <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                                @Html.TextBoxFor(temp => temp.Password, new { type = "password", placeholder = "Mật khẩu", autocomplete = "current-password" })
+                            </div>
+                            @Html.ValidationMessageFor(temp => temp.Password)
+                        </div>
+
+                        <div class="mb-3" style="color:red;">
+                            @ViewBag.Error
+                        </div>
+
+                        <div class="form-group form-button">
+                            <button type="submit" name="signin" id="signin" class="btn btn-secondary w-100">Đăng nhập</button>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            @Html.ActionLink("Tạo tài khoản ", "Register", new { controller = "Account" }, new { @class = "signup-image-link" })
+                            <a class="signup-image-link" href="#">Quên mật khẩu</a>
+                        </div>
+                    }
+                    <div class="social-login">
+                        <span class="social-label">Đăng nhập bằng</span>
+                        <ul class="socials">
+                            <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

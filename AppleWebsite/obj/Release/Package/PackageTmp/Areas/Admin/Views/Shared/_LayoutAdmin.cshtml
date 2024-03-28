@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	@*--======== CSS ========*@
+	<link href="~/Content/bootstrap.css" rel="stylesheet" />
+	<link rel="stylesheet" href="~/css/style_admin.css">
+	<link rel="shortcut icon" href="~/DeviceAppleImage/Apple-logo.png">
+	<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+	@*--===== Boxicons CSS =====*@
+	<link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+	<title>@ViewBag.Title</title>
+	<script src="~/Scripts/jquery-3.6.1.js"></script>
+	<script src="~/Scripts/bootstrap.js"></script>
+	<script src="~/Scripts/jquery.validate.js"></script>
+	<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+	<link rel="stylesheet" href="~/css/fonts/material-icon/css/material-design-iconic-font.min.css">
+</head>
+
+<body class="dark" style="position:relative;">
+	<style>
+		::-webkit-scrollbar {
+			display: none;
+		}
+	</style>
+	<nav class="sidebar close">
+		<header>
+			<div class="image-text">
+				<span class="image" title="Go to page of apple">
+					<a href="@Url.Action("Index",new { controller="home",area = ""})"><img src="~/DeviceAppleImage/Apple-logo.png" alt="Alternate Text" /></a>
+				</span>
+
+				<div class="text logo-text">
+					<span class="name">Admin page</span>
+					<span class="profession">Apple.com</span>
+				</div>
+			</div>
+
+			<i class='bx bx-chevron-right toggle'></i>
+		</header>
+
+		<div class="menu-bar">
+			<div class="menu">
+				<li class="search-box">
+					<i class='bx bx-search icon'></i>
+					<input type="text" placeholder="Search...">
+				</li>
+
+				<ul class="ps-0 menu-links" title="Home">
+					<li class="nav-link">
+						<a href="@Url.Action("Index",new {controller ="Home",area="Admin" })">
+							<i class="fa fa-home icon"></i>
+							<span class="text nav-text">Home</span>
+
+						</a>
+					</li>
+					<li title="Users" class="nav-link">
+						<a href="@Url.Action("Index",new {controller ="Users",area="Admin" })">
+							<i class="fa fa-users icon"></i>
+							<span class="text nav-text">Users</span>
+						</a>
+					</li>
+
+					<li title="Products" class="nav-link">
+						<a href="@Url.Action("Index",new {controller ="Products",area="Admin" })">
+							<i class="fa fa-product-hunt icon"></i>
+							<span class="text nav-text">Products</span>
+						</a>
+					</li>
+
+					<li title="Order details" class="nav-link">
+						<a href="@Url.Action("Index",new {controller ="Api",area="Admin" })"">
+							<i class="fa fa-adn icon"></i>
+							<span class="text nav-text">
+								API
+							</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="bottom-content">
+				<ul class="ps-0">
+				<li class="">
+					<a href="@Url.Action("Logout",new { controller = "account",are="admin"})">
+						<i class='bx bx-log-out icon'></i>
+						<span class="text nav-text">Logout</span>
+					</a>
+				</li>
+				</ul>
+
+
+			</div>
+		</div>
+
+	</nav>
+
+	<div class="home ps-3" style="background-color: #18191a; position:absolute;">
+		@RenderBody()
+	</div>
+	<script>
+		const body = document.querySelector('body'),
+			sidebar = body.querySelector('nav'),
+			toggle = body.querySelector(".toggle"),
+			searchBtn = body.querySelector(".search-box"),
+			modeSwitch = body.querySelector(".toggle-switch"),
+			modeText = body.querySelector(".mode-text");
+
+
+		toggle.addEventListener("click", () => {
+			sidebar.classList.toggle("close");
+		})
+
+		searchBtn.addEventListener("click", () => {
+			sidebar.classList.remove("close");
+		})
+
+		
+	</script>
+
+</body>
+</html>
+<noembed style="display:none!important;">

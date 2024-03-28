@@ -1,0 +1,138 @@
+﻿@model List<AppleWebsite.Identity.AppUser>
+
+@{
+	ViewBag.Title = "Index";
+}
+<style>
+	::-webkit-scrollbar {
+		display: none;
+	}
+</style>
+<h2 class="text">Users</h2>
+<a href="@Url.Action("AddNewUser","Users")" class="text-light me-3 btn btn-secondary pull-right">Add new user</a>
+<table class="table">
+	<tr>
+		<th class="text-light">
+			UserName
+		</th>
+		<th class="text-light">
+			Full name
+		</th>
+		<th class="text-light">
+			Email
+		</th>
+		<th class="text-light">
+			Birthday
+		</th>
+		<th class="text-light">
+			Phone Number
+		</th>
+		<th class="text-light">
+			Address
+		</th>
+		<th class="text-light">
+			City
+		</th>
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td class="text-white">
+				@Html.DisplayFor(modelItem => item.UserName)
+			</td>
+			<td class="text-white">
+				@Html.DisplayFor(modelItem => item.Fullname)
+			</td>
+
+			<td class="text-white">
+				@Html.DisplayFor(modelItem => item.Email)
+			</td>
+			<td class="text-white">
+				@Html.DisplayFor(modelItem => item.Birthday)
+			</td>
+			<td class="text-white">
+				@Html.DisplayFor(modelItem => item.PhoneNumber)
+			</td>
+			<td class="text-white">
+				@Html.DisplayFor(modelItem => item.Address)
+			</td>
+			<td class="text-white">
+				@Html.DisplayFor(modelItem => item.City)
+			</td>
+			<td class="text-white">
+				@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "text-secondary text-decoration-none" }) |
+				<a class="text-secondary text-decoration-none" type="button" data-bs-toggle="modal" data-bs-target="#Details_@item.UserName">Details</a> |
+				<a class="text-secondary text-decoration-none" type="button" data-bs-toggle="modal" data-bs-target="#_@item.UserName">Delete</a>
+			</td>
+		</tr>
+
+
+
+	}
+	<!-- Modal Detail-->
+
+	@foreach (var item in Model)
+	{
+
+		<div class="modal fade" id="Details_@item.UserName" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog  modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Information</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body justify-content-center d-flex flex-column">
+						@if (item.imgURL == null)
+						{
+							<img class="rounded-circle mt-5 text-center  mx-auto" width="150px" src="~/Avatar/default_user.jpg">
+						}
+						else
+						{
+							<img class="rounded-circle mt-5 mx-auto" width="150px" src="~/Avatar/@item.imgURL">
+						}
+					
+						<span class="text-center">@item.Fullname</span>
+						<span class="text-black-50  text-center">@item.Email</span>
+						<div class="mt-3">
+							<h6>Username: @item.UserName</h6>
+							<h6>
+								Birthday: @Html.DisplayFor(modelItem => item.Birthday)
+							</h6>
+							<h6>Email: @item.Email</h6>
+							<h6>Address: @item.Address, @item.City</h6>
+							<h6>Phone number: @item.PhoneNumber</h6>
+						</div>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+
+	<!-- Modal Delete-->
+	@foreach (var item in Model)
+	{
+		<div class="modal fade" id="_@item.UserName" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog  modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Delete Users</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						Are you sure want to delete @item.UserName
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<a href="@Url.Action("Delete", "Users",new { id = item.Id })" type="button" class="btn btn-primary">Yes</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+</table>

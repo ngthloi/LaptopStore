@@ -1,0 +1,78 @@
+﻿@model AppleWebsite.Models.Device
+@{
+	ViewBag.Title = "Edit";
+}
+<div class="container rounded bg-white mt-5">
+	<a href="../" class="btn-close pull-right mt-5 me-4  shadow-none"></a>
+
+	<div class="row">
+		<div class="col-md-3 border-right">
+			<div class="d-flex flex-column align-items-center text-center p-3 py-5">
+				@if (Model.img == null)
+				{
+					<img class=" mt-5" width="250px" src="~/Avatar/default_user.jpg">
+				}
+				else
+				{
+					<img class=" mt-5 img-fluid" width="250px" src="~/DeviceAppleImage/@Model.Category.name_cate/@Model.img" alt="">
+				}
+				<span>
+				</span>
+			</div>
+		</div>
+
+		<div class="col-md-8 border-right ">
+			<div class="p-3 py-5">
+				<div class="d-flex justify-content-between align-items-center mb-3">
+					<h4 class="text-right">Info Device</h4>
+				</div>
+				@using (Html.BeginForm("Edit", "Products", new { area = "admin" }, FormMethod.Post, new { @class = "", enctype = "multipart/form-data" }))
+				{
+			<div class="row mt-3">
+				<div class="col-md-12 mt-3 d-none">
+					<label class="labels">Id of device</label>
+					@Html.TextBoxFor(row => row.id_dev, new { @class = "form-control shadow-none", @readonly = "", type = "text", placeholder = "Id", value = Model.id_dev })
+				</div>
+				<div class="col-md-12 mt-3">
+					<label class="labels">Name of device</label>
+					@Html.TextBoxFor(row => row.name_dev, new { @class = "form-control shadow-none",  type = "text", placeholder = "Name of device", value = Model.name_dev })
+				</div>
+				<div class="row pe-0">
+					<div class="col-md-6 mt-3">
+						<label class="labels">Price</label>
+						@Html.TextBoxFor(row => row.cost, new { @class = "form-control shadow-none", type = "number", placeholder = "Price", value = Model.cost })
+
+					</div>
+					<div class="col-md-6 mt-3 px-0">
+						<label class="labels ">Category</label>
+						@Html.DropDownListFor(row => row.id_cate, new SelectList(ViewBag.Category, "id_cate", "name_cate"), new { @class = "form-select shadow-none", value = Model.id_cate })
+					</div>
+					<div class="col-md-6 mt-3 px-0 d-none">
+						<label class="labels ">Category</label>
+						@Html.TextBoxFor(row => row.Category, new { @class = "form-control shadow-none", type = "number", placeholder = "Price", value = Model.Category })
+
+					</div>
+				</div>
+				@if (Model.storage != null)
+				{
+
+					<div class="col-md-12 mt-3">
+						<label class="labels">Storage</label>
+						@Html.TextBoxFor(row => row.storage, new { @class = "form-control shadow-none", @readonly = "", type = "text", placeholder = "Storage", value = Model.storage })
+					</div>
+				}
+			<div class="col-md-12 mt-3">
+				<label class="labels">Image of Device</label>
+				@Html.TextBoxFor(row => row.img, "", new { @class = "form-control shadow-none", type = "file", name = "img", accept = "image/*" })
+			</div>
+			</div>
+
+					<div class="mt-5 text-center">
+						<button class="btn btn-secondary profile-button shadow-none" type="submit">Save</button>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,102 @@
+﻿@model List<AppleWebsite.Models.Cart>
+
+
+@{
+	ViewBag.Title = "Index";
+}
+
+<div class="col cart container-fluid mb-4 shadow " style=" margin-top:100px;min-height:85vh; width:85vw; background-color:white; border-radius:1%; ">
+
+	<div class="row ">
+		<div class=" col-xxl-8">
+			<div class="title m-4">
+				<div class="row">
+					<div class="col"><h4><b>Shopping Cart</b></h4></div>
+					<div class="col align-self-center text-right text-muted">@Model.Count() items</div>
+				</div>
+			</div>
+			<div class="row border-top border-bottom ">
+
+				<div class="row main align-items-center">
+					<div class="col-2">
+					</div>
+					<div class="col-3">
+					</div>
+					<div class="col-1">
+
+					</div>
+					<div class="col-2">
+						Cost
+					</div>
+					<div class="col-2">
+						Storage
+					</div>
+					<div class="col-1">
+
+					</div>
+				</div>
+			</div>
+			<div class="row  pb-4">
+				@foreach (var item in Model)
+				{
+					<div class="row main align-items-center border-bottom pt-2 pb-2">
+						<div class="col-2"><img class="img-fluid" loading="lazy" src="~/DeviceAppleImage/@item.Device.Category.name_cate/@item.Device.img"></div>
+						<div class="col-3 h6">
+							<div class="row text-muted h6">@item.Device.Category.name_cate</div>
+							<div class="row h6">@item.Device.name_dev</div>
+						</div>
+						<div class="col-1 h6">
+
+							@item.quantity
+
+						</div>
+						<div class="col-2 h6">
+							@item.Device.cost.ToString()$
+						</div>
+						<div class="col-2 h6">
+							@item.storage
+						</div>
+						<div class="col-1 ms-4 h6">
+							<a class="text-danger" href="~/cart/delete/@item.id_cart"><i class="fa fa-close"></i></a>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+		<div class=" p-5 col-xxl-4 col-lg-12 col-12 col-xl-12 col-sm-8 col-md-12" style="background-color: rgb(221,221,221); min-height: 85vh; ">
+			<div class="col-4" style="width:100%;">
+				<div class=""><h5><b>Summary</b></h5></div>
+				<hr>
+				<div style="display:flex; justify-content:space-between;">
+					<div>ITEMS: @Model.Sum(row => row.quantity)</div>
+				</div>
+				@using (Html.BeginForm("checkout", "cart", FormMethod.Post, new { @class = "mt-5", enctype = "multipart/dorm-data" }))
+				{
+
+					@Html.Label("Full name", new { @class = "form-label mt-3 mb-0" })
+					@Html.TextBox("Fullname", ViewBag.User.Fullname as string, new { @class = "form-control shadow-none",name="fullname", placeholder = "Full name", type = "text" })
+					@Html.Label("Phone number", new { @class = "form-label mt-3 mb-0" })
+					@Html.TextBox("Phonenumber", ViewBag.User.PhoneNumber as string, new { @class = "form-control shadow-none", placeholder = "Phone number", type = "number" })
+					@Html.Label("Email", new { @class = "form-label mt-3 mb-0" })
+					@Html.TextBox("Email", ViewBag.User.Email as string, new { @class = "form-control shadow-none", placeholder = "Email", type = "text" })
+					@Html.Label("Address", new { @class = "form-label mt-3 mb-0" })
+					@Html.TextBox("Address", ViewBag.User.Address as string, new { @class = "form-control shadow-none", placeholder = "Address", type = "text" })
+					@Html.Label("City", new { @class = "form-label mt-3 mb-0" })
+					@Html.TextBox("City", ViewBag.User.City as string, new { @class = "form-control shadow-none", placeholder = "City", type = "text" })
+
+					<div class="mt-4" style="display:flex;flex-direction:row; justify-content:space-between;">
+						<div class="text-dark">TOTAL PRICE</div>
+						<div class="text-danger fw-bold"> @Model.Sum(row => (row.Device.cost * Convert.ToDouble(row.quantity))).ToString("C")</div>
+					</div>
+					<div class="d-flex justify-content-center">
+						<button class="btn btn-outline-secondary text-center mx-auto mt-2" type="submit">CHECK OUT</button>
+					</div>
+				}
+
+			</div>
+		</div>
+	</div>
+
+
+</div>
+

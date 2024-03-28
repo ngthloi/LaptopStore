@@ -1,0 +1,168 @@
+﻿@model IEnumerable<AppleWebsite.Models.Device>
+
+@{
+	ViewBag.Title = Model.FirstOrDefault().Category.name_cate;
+}
+
+<style>
+	.card {
+		transition: all 0.2s ease-in-out;
+	}
+
+		.card:hover {
+			transform: scale(1.02);
+			box-shadow: 0px 15px 15px rgb(128, 128, 120);
+		}
+
+	.popular {
+		position: relative;
+	}
+
+		.popular:before {
+			background-color: rgb(38,52,64);
+			content: "Best Seller";
+			color: white;
+			padding: 5px 10px;
+			border-radius: 20px;
+			position: absolute;
+			right: -40px;
+			top: -25px;
+		}
+</style>
+<div style="height:560px;" id="carouselControls" class="carousel slide" data-mdb-ride="carousel" data-bs-ride="carousel">
+	<div class="carousel-inner ">
+		<div style="overflow:hidden;" class="carousel-item active ">
+			<div style="height:560px; background-image: url(/DeviceAppleImage/banner_ipad.jpg);background-position:center;background-size:contain;background-repeat:no-repeat">
+			</div>
+		</div>
+		<div style="overflow:hidden;" class="carousel-item">
+			<div style="height:560px; background-image: url(/DeviceAppleImage/banner_iphone.jpg);background-position:center;background-size:contain;background-repeat:no-repeat">
+			</div>
+
+		</div>
+		<div style="overflow:hidden;" class="carousel-item ">
+			<div style="height:560px; background-image: url(/DeviceAppleImage/banner_mac.jpg);background-position:center;background-size:contain;background-repeat:no-repeat">
+			</div>
+		</div>
+		<div style="overflow: hidden;" class="carousel-item ">
+			<div style="height:560px; background-image: url(/DeviceAppleImage/banner_watch.jpg);background-position:center;background-size:contain;background-repeat:no-repeat">
+			</div>
+		</div>
+		<div style="overflow: hidden;" class="carousel-item ">
+			<div style="height:560px; background-image: url(/DeviceAppleImage/banner_iphone2.jpg);background-position:center;background-size:contain;background-repeat:no-repeat">
+			</div>
+		</div>
+	</div>
+	<button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Previous</span>
+	</button>
+	<button class="carousel-control-next" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Next</span>
+	</button>
+</div>
+<div class="container mt-5">
+	<strong><a class="text-decoration-none text-dark text-uppercase display-6 fw-bold" href="#">@Model.FirstOrDefault().Category.name_cate</a></strong>
+	<div class="col" id="seamless-replace">
+		<div class="row justify-content-start">
+			@{
+
+				Random rd = new Random();
+				int rand;
+			}
+			@foreach (var item in Model)
+			{
+				rand = rd.Next(3);
+				if (rand == 1)
+				{
+
+					<div class="card  p-2 mx-auto m-3  col-7 col-md-4 mx-md-2  col-lg-3 mx-lg-2 col-xl-3 mx-xl-4 col-xxl-2 mx-xxl-5 popular" style="">
+						<img class="card-img-top " loading="lazy" style="" src="~/DeviceAppleImage/@item.Category.name_cate/@item.img" alt="Alternate Text" />
+						<div class="card-body  justify-content-between flex-column d-flex">
+							<h5 class="card-title fw-bold h6">@item.name_dev</h5>
+							<p class="card-text h6">Cost: @item.cost.ToString("C")</p>
+							@Html.ActionLink("Buy", "details", new { id = item.id_dev, controller = "device" }, new { @class = "card-img-bottom btn btn-outline-secondary" })
+
+						</div>
+					</div>
+				}
+				else
+				{
+					<div class="card  p-2 mx-auto m-3  col-7 col-md-4 mx-md-2  col-lg-3 mx-lg-2 col-xl-3 mx-xl-4 col-xxl-2 mx-xxl-5" style="">
+						<img class="card-img-top " loading="lazy" style="" src="~/DeviceAppleImage/@item.Category.name_cate/@item.img" alt="Alternate Text" />
+						<div class="card-body  justify-content-between flex-column d-flex">
+							<h5 class="card-title h6  fw-bold">@item.name_dev</h5>
+							<p class="card-text h6">Cost: @item.cost.ToString("C")</p>
+							@Html.ActionLink("Buy", "details", new { id = item.id_dev, controller = "device" }, new { @class = "card-img-bottom btn btn-outline-secondary" })
+
+						</div>
+					</div>
+				}
+			}
+		</div>
+		<div class="row">
+			@{
+				int PrevPage, NextPage;
+				PrevPage = ViewBag.page - 1;
+				if (PrevPage <= 0)
+				{
+					PrevPage = 1;
+				}
+				NextPage = ViewBag.page + 1;
+				if (NextPage > ViewBag.NoOfPages)
+				{
+					NextPage = ViewBag.page;
+
+				}
+			}
+			<ul class=" pagination justify-content-center w-pagination-wrapper">
+				<li class="page-item">
+					<a class="page-link shadow-none text-dark" href="@Url.Action("Index",new {d = Model.FirstOrDefault().id_cate, page = PrevPage, controller = "Device" })"><i class="fa fa-chevron-left"></i></a>
+				</li>
+				@for (int i = 0; i < ViewBag.NoOfPages; i++)
+				{
+					if (i + 1 == ViewBag.page)
+					{
+
+						<li class="page-item">
+							@Html.ActionLink((i + 1).ToString(), "Index", new { d = Model.FirstOrDefault().id_cate, page = (i + 1), controller = "Device" }, new { style = "background-color: rgb(59,59,60);", @class = "page-link shadow-none text-light" })
+						</li>
+					}
+					else
+					{
+						<li class="page-item">
+							@Html.ActionLink((i + 1).ToString(), "Index", new { d = Model.FirstOrDefault().id_cate, page = (i + 1), controller = "Device" }, new { @class = "page-link shadow-none text-dark" })
+						</li>
+					}
+				}
+				<li class="page-item">
+					<a class="page-link shadow-none text-dark" href="@Url.Action("Index",new { id = Model.FirstOrDefault().id_cate, page = NextPage, controller = "Device" })"><i class="fa fa-chevron-right"></i></a>
+
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- Start seamless-pagination custom code -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+<script>
+	var containerSelector = '#seamless-replace';
+	$(document).pjax(
+		'.w-pagination-wrapper a',
+		containerSelector,
+		{
+			container: containerSelector,
+			fragment: containerSelector,
+			scrollTo: false,
+			timeout: 2500,
+		}
+	);
+	// These 3 lines should reinitialize interactions
+	$(document).on('pjax:end', function () {
+		Webflow.require('ix2').init();
+	});
+</script>
+
+<!-- End seamless-pagination custom code -->

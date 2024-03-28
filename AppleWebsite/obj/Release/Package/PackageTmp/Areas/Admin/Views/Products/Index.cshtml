@@ -1,0 +1,89 @@
+﻿@model IEnumerable<AppleWebsite.Models.Device>
+
+@{
+	ViewBag.Title = "Index";
+}
+<style>
+	::-webkit-scrollbar {
+		display: none;
+	}
+</style>
+<h2 class="text ">Devices</h2>
+<a href="@Url.Action("Create","Products")" class="text-light me-3 btn btn-secondary pull-right">Create New</a>
+<table class="table">
+	<tr>
+		<th class="text-light">
+			@Html.DisplayNameFor(model => model.name_dev)
+		</th>
+		<th class="text-light">
+			@Html.DisplayNameFor(model => model.cost)
+		</th>
+		<th class="text-light">
+			@Html.DisplayNameFor(model => model.storage)
+		</th>
+		<th class="text-light">
+			@Html.DisplayNameFor(model => model.id_cate)
+		</th>
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td class="text-white">
+				@Html.DisplayFor(modelItem => item.name_dev)
+			</td>
+			<td class="text-white">
+				@Html.DisplayFor(modelItem => item.cost)
+			</td>
+
+			<td class="text-white">
+				@Html.DisplayFor(modelItem => item.storage)
+			</td>
+			<td class="text-white">
+				@Html.DisplayFor(modelItem => item.Category.name_cate)
+			</td>
+			<td class="text-white text-center">
+				@Html.ActionLink("Edit", "Edit", new { id = item.id_dev }, new { @class = "text-secondary text-decoration-none" }) |
+				<a class="text-secondary text-decoration-none" type="button" data-bs-toggle="modal" data-bs-target="#Details_@item.id_dev">Details</a> |
+				@Html.ActionLink("Delete", "Delete", new { id = item.id_dev }, new { @class = "text-secondary text-decoration-none" })
+			</td>
+		</tr>
+	}
+</table>
+<!-- Modal Detail-->
+
+@foreach (var item in Model)
+{
+	<div class="modal fade" id="Details_@item.id_dev" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+		<div class="modal-dialog  modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="ModalLabel">@item.name_dev</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body justify-content-center d-flex flex-column">
+					@if (item.img == null)
+					{
+						<img class=" mt-5 text-center  mx-auto" width="150px" src="~/Avatar/default_user.jpg">
+					}
+					else
+					{
+						<img class=" mt-5 mx-auto" width="150px" src="~/DeviceAppleImage/@item.Category.name_cate/@item.img">
+					}
+
+					<div class="mt-3">
+						<h6> @item.name_dev</h6>
+						<h6>
+							Price: @item.cost.ToString("C")
+						</h6>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+}

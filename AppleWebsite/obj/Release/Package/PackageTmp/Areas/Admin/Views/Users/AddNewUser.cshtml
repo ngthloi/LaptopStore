@@ -1,0 +1,63 @@
+﻿@model AppleWebsite.Areas.Admin.Model.NewUser
+@{
+	ViewBag.Title = "Add new user";
+}
+<style>
+	.field-validation-error {
+		color: red;
+	}
+
+
+
+	.main {
+		background-color: #18191a;
+		width:50%;
+		margin:auto;
+	}
+</style>
+<div class="main p-5 rounded-5" style="margin-top: 100px; background-color: #242526;">
+	<a href="@Url.Action("Index","Users")" class="btn-close-white btn-close pull-right   shadow-none "></a>
+
+	<!-- Sign up form -->
+	<section class="signup">
+		<div class="container">
+			<div class="signup-content ">
+				<div class="signup-form">
+					<h2 class="text-light">Create new user</h2>
+					@using (Html.BeginForm("AddNewUser", "Users", new { area = "admin" }, FormMethod.Post, new { @class = "register-form" }))
+					{
+						<div class="form-main mt-5 mb-5">
+							<div class="form-group">
+								@Html.TextBoxFor(row => row.FullName, new { placeholder = "Full Name", @class = "form-control" })
+							</div>
+							@Html.ValidationMessageFor(row => row.FullName)
+						</div>
+						<div class="form-main mt-5 mb-5">
+							<div class="form-group">
+								@Html.TextBoxFor(row => row.UserName, new { placeholder = "User Name", @class = "form-control shadow-none" , autocomplete = "username" })
+							</div>
+							@Html.ValidationMessageFor(row => row.UserName)
+						</div>
+						<div class="form-main mt-5 mb-5">
+							<div class="form-group">
+								@Html.TextBoxFor(row => row.Password, new { type = "password", placeholder = "Password", @class = "form-control shadow-none" , autocomplete = "new-password" })
+							</div>
+							@Html.ValidationMessageFor(row => row.Password)
+						</div>
+						<div class="form-main mt-5 mb-5">
+							<div class="form-group">
+								@Html.TextBoxFor(row => row.ConfirmPassword, new { type = "password", placeholder = "Confirm Password", @class = "form-control shadow-none", autocomplete = "new-password" })
+							</div>
+							@Html.ValidationMessageFor(row => row.ConfirmPassword)
+						</div>
+
+						<div class="form-group form-button  ">
+							<button type="submit" name="signup" id="signup" class="btn btn-secondary w-100">Create</button>
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+

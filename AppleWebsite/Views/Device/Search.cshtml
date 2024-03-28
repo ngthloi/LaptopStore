@@ -1,0 +1,47 @@
+﻿@model List<AppleWebsite.Models.Device>
+
+@{
+	ViewBag.Title = "Search";
+}
+
+<div class="container mt-5">
+	<div class="col" id="seamless-replace">
+		<div class="row justify-content-start">
+			@{
+
+				Random rd = new Random();
+				int rand;
+			}
+			@foreach (var item in Model)
+			{
+				rand = rd.Next(3);
+				if (rand == 1)
+				{
+
+					<div class="card  p-2 mx-auto m-3  col-7 col-md-4 mx-md-2  col-lg-3 mx-lg-2 col-xl-3 mx-xl-4 col-xxl-2 mx-xxl-5 popular" style="">
+						<img class="card-img-top " loading="lazy" style="" src="~/DeviceAppleImage/@item.Category.name_cate/@item.img" alt="Product" />
+						<div class="card-body  justify-content-between flex-column d-flex">
+							<h5 class="card-title h6">@item.name_dev</h5>
+							<p class="card-text h6">Cost: @item.cost.ToString("C")</p>
+							@Html.ActionLink("Buy", "details", new { id = item.id_dev, controller = "device" }, new { @class = "card-img-bottom btn btn-outline-secondary" })
+
+						</div>
+					</div>
+				}
+				else
+				{
+					<div class="card  p-2 mx-auto m-3  col-7 col-md-4 mx-md-2  col-lg-3 mx-lg-2 col-xl-3 mx-xl-4 col-xxl-2 mx-xxl-5" style="">
+						<img class="card-img-top " loading="lazy" style="" src="~/DeviceAppleImage/@item.Category.name_cate/@item.img" alt="Product" />
+						<div class="card-body  justify-content-between flex-column d-flex">
+							<h5 class="card-title h6">@item.name_dev</h5>
+							<p class="card-text h6">Cost: @item.cost.ToString("C")</p>
+							@Html.ActionLink("Buy", "details", new { id = item.id_dev, controller = "device" }, new { @class = "card-img-bottom btn btn-outline-secondary" })
+
+						</div>
+					</div>
+				}
+			}
+		</div>
+
+	</div>
+</div>

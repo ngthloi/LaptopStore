@@ -1,0 +1,84 @@
+﻿@model AppleWebsite.ViewModel.RegisterVM
+
+@{
+    ViewBag.Title = "Register";
+
+    Layout = "~/Views/Shared/_LayoutPage_Sign_in_up.cshtml";
+
+}
+
+<div class="main" style=" padding-top:70px; min-height:100vh;">
+    <!-- Sign up form -->
+    <section class="signup">
+        <div class="container">
+            <div class="signup-content">
+                <div class="signup-form">
+                    <h2 class="form-title">Đăng ký</h2>
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "register-form" }))
+                    {
+                        <div class="form-main mt-5 mb-5">
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account"></i></label>
+                                @Html.TextBoxFor(row => row.FullName, new { placeholder = "Họ và tên" })
+                            </div>
+                            @Html.ValidationMessageFor(row => row.FullName)
+                        </div>
+                        <div class="form-main mt-5 mb-5">
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                @Html.TextBoxFor(row => row.UserName, new { placeholder = "Tài khoản", autocomplete = "username" })
+                            </div>
+                            @Html.ValidationMessageFor(row => row.UserName)
+                        </div>
+                        <div class="form-main mt-5 mb-5">
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                @Html.TextBoxFor(row => row.Email, new { placeholder = "Email", type = "email", autocomplete = "email" })
+                            </div>
+                            @Html.ValidationMessageFor(row => row.Email)
+                        </div>
+                        <div class="form-main mt-5 mb-5">
+                            <div class="form-group">
+                                <label for="mobile"><i class="zmdi zmdi-phone"></i></label>
+                                @Html.TextBoxFor(row => row.Mobile, new { placeholder = "Số điện thoại", type = "number", autocomplete = "phone-number" })
+                            </div>
+                            @Html.ValidationMessageFor(row => row.Mobile)
+
+                        </div>
+                        <div class="form-main mt-5 mb-5">
+
+                            <div class="form-group">
+                                <label for="dateofbirth"><i class="zmdi zmdi-calendar"></i></label>
+                                @Html.TextBoxFor(row => row.Birthday, new { placeholder = "", type = "date" })
+                            </div>
+                            @Html.ValidationMessageFor(row => row.Birthday)
+
+                        </div>
+                        <div class="form-main mt-5 mb-5">
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                @Html.TextBoxFor(row => row.Password, new { type = "password", placeholder = "Mật khẩu", autocomplete = "new-password" })
+                            </div>
+                            @Html.ValidationMessageFor(row => row.Password)
+                        </div>
+                        <div class="form-main mt-5 mb-5">
+                            <div class="form-group">
+                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                @Html.TextBoxFor(row => row.ConfirmPassword, new { type = "password", placeholder = "Xác nhận mật khẩu", autocomplete = "new-password" })
+                            </div>
+                            @Html.ValidationMessageFor(row => row.ConfirmPassword)
+                        </div>
+                        <div class="form-group form-button  ">
+                            <button type="submit" name="signup" id="signup" class="btn btn-secondary w-100">Đăng ký</button>
+                        </div>
+                    }
+
+                </div>
+                <div class="signup-image">
+                    <figure><img class="img-fluid" src="~/DeviceImage/banner_msi.jpg" alt="sing up image"></figure>
+                    @Html.ActionLink("Tôi đã có tài khoản!", "login", new { controller = "Account" }, new { @class = "signup-image-link" })
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

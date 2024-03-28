@@ -1,0 +1,150 @@
+﻿@model AppleWebsite.Models.Device
+
+@{
+	ViewBag.Title = Model.name_dev;
+	string[] storage = new string[0];
+	if (string.IsNullOrEmpty(Model.storage))
+	{
+
+	}
+	else
+	{
+		storage = Model.storage.Split(';').ToArray();
+	}
+}
+
+<div aria-live="polite" aria-atomic="true" style="position: relative;">
+	<div class="toast" style="position: fixed; top: 7%; right: 2%; z-index:999999;">
+		<div class="toast-header d-flex justify-content-between">
+			<strong class="mr-auto">MayTinh</strong>
+			<button type="button" class="ml-2 mb-1 btn-close shadow-none" data-bs-dismiss="toast" aria-label="Close">
+			</button>
+		</div>
+		<div class="toast-body fw-bolder">
+			Add to cart success. Please check your cart.
+		</div>
+	</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<div class="col container" style="min-height:70vh;">
+	<div class="row">
+		<div class="col-xl-5 p-5" style="">
+			<div class="row">
+
+				<img class="img-fluid" style="aspect-ratio:auto; object-fit:cover;" src="~/DeviceImage/@Model.Category.name_cate/@Model.img" alt="Alternate Text" />
+			</div>
+			<div class="row mt-5">
+				<div class="owl-carousel owl-theme px-5">
+					@foreach (var item in Model.Category.devices)
+					{
+					<a href="@Url.Action("Details","Device",new {id=item.id_dev, controller="device" })"><img class="img-fluid" src="~/DeviceImage/@Model.Category.name_cate/@item.img	" alt="Alternate Text" /></a>
+					}
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-5 p-5">
+			<h1 id="id_dev" style="visibility:hidden">@Model.id_dev</h1>
+			<h2 class="fw-bold">@Model.name_dev</h2>
+			<p>
+				<i class="fa fa-star small" style="color:orange;"></i>
+				<i class="fa fa-star small" style="color:orange;"></i>
+				<i class="fa fa-star" style="color:orange;"></i>
+				<i class="fa fa-star small" style="color:orange;"></i>
+				<i class="fa fa-star-half-o small" style="color:orange;"></i>
+			</p>
+			<h5 class="fw-bold" style="color:red;">@Model.cost.ToString("C")</h5>
+			@if (storage.Length != 0)
+			{
+				<select id="SelectStorage" name="SelectStorage" class="form-select w-100 shadow-none">
+					<option value="-1">Please select storage </option>
+
+					@for (int i = 0; i < storage.Length; i++)
+					{
+						<option value="@storage[i]">@storage[i] </option>
+					}
+				</select>
+			}
+			<div class="mt-2">
+				<h6 class="ps-2 pt-1 pb-1 fw-bold text-uppercase" style="background-color: lightgray;">Specification</h6>
+				<ul class="px-0 list-unstyled">
+					<li class="fw-bold ps-4">Brand<span class=" pull-right pe-4 fw-normal">@Model.Category.name_cate</span> </li>
+					<hr class="mt-0" />
+					<li class="fw-bold ps-4">Model Name<span class=" pull-right pe-4 fw-normal">@Model.name_dev</span> </li>
+					<hr class="mt-0" />
+					<li class="fw-bold ps-4">CPU <span class=" pull-right pe-4 fw-normal">Intel i51134G7</span> </li>
+					<hr class="mt-0" />
+					<li class="fw-bold ps-4">Connector Type <span class="pull-right pe-4 fw-normal">USB, TYPE C, USB A</span> </li>
+					<hr class="mt-0" />
+				</ul>
+			</div>
+			<div class="mt-2 align-content-center d-flex">
+				<i class="fa-brands fa-youtube" style="color:red; font-size:26px;"></i>
+				@{
+					string search = "https://www.youtube.com/results?search_query=" + Model.name_dev;
+				}
+				<a href="@search" target="_blank" class="ms-2 text-decoration-none fw-bolder">More information on youtube</a>
+			</div>
+			<div class="container-fluid row px-0 m-0">
+				<a class="btn btn-secondary  mt-4 " data-bs-toggle="modal" data-bs-target="#exampleModal">Buy now</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" tabindex="-1" id="exampleModal">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Confirm</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>Add to cart?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-success" onclick="buy()">Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$('.owl-carousel').owlCarousel({
+		loop: true,
+		margin: 10,
+		nav: true,
+		responsive: {
+			0: {
+				items: 4
+			},
+			600: {
+				items: 4
+			},
+			1200: {
+				items: 4
+			},
+			1500: {
+				items: 4
+			}
+		}
+	})
+</script>
+<script>
+	var value = ""
+	value = $('#SelectStorage').val();
+	if (typeof value == 'undefined')
+		value = ""
+	$('#SelectStorage').change(() => {
+		value = $('#SelectStorage').val();
+	});
+	function buy() {
+		if (value == '-1') {
+			alert("Please select storage")
+			return
+		}
+		$('.toast').toast('show')
+		var i = document.getElementById("id_dev").innerHTML;
+		window.location.href = "/cart/buy/" + i + "?storage=" + value;
+	}
+</script>
+

@@ -1,0 +1,95 @@
+﻿
+@{
+	ViewBag.Title = "Page of using API";
+}
+
+
+<button type="button" class="btn btn-secondary mt-5 ms-5 " id="btnGetDevices">Get all device using API</button>
+
+<table class="table devTable">
+	<tr>
+		<th class="text-light">
+			Device
+		</th>
+		<th class="text-light">
+			Price
+		</th>
+		<th class="text-light">
+			Store
+		</th>
+		<th></th>
+	</tr>
+
+	@*@foreach (var item in Model)
+		{
+			<tr>
+				<td class="text-white">
+					@Html.DisplayFor(modelItem => item.name_dev)
+				</td>
+				<td class="text-white">
+					@Html.DisplayFor(modelItem => item.cost)
+				</td>
+
+				<td class="text-white">
+					@Html.DisplayFor(modelItem => item.storage)
+				</td>
+			</tr>
+		}*@
+</table>
+<div class="modal fade" id="ModalDetail" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog  modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="ModalLabel"></h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body justify-content-center d-flex flex-column">
+				<div class="mt-3">
+					<h6 id="ModalNameDev"> </h6>
+					<h6 id="ModalCostDev">
+						Price:
+					</h6>
+					<h6 id="ModalStorageDev"> </h6>
+
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$('#btnGetDevices').click(() => {
+		$.ajax({
+			type: 'GET',
+			url: '/api/device',
+			success: (respones) => {
+				for (var i = 0; i <= respones.length; i++) {
+					const value = respones[i];
+					const strHTML = '<tr><td class="text-white">' + value.name_dev + '</td><td class="text-white">' + value.cost + '</td><td class="text-white">' + value.storage + '</td><td class="text-white">' + '<a class="text-secondary text-decoration-none btnGetDeviceId" type="button" data-bs-toggle="modal" data-devid=' + value.id_dev + ' data-bs-target="#ModalDetail">Details</a></td></tr>';
+					$('.devTable').append(strHTML)
+				}
+			},
+			error: (err) => { console.log(err) }
+		})
+	})
+	$(document).on('click', '.btnGetDeviceId', (event) => {
+		const devid = $(event.target).attr('data-devid');
+		console.log(devid)
+		$.ajax({
+			type: 'GET',
+			url: `/api/device?id=${devid}`,
+			success: (respones) => {
+				console.log(respones)
+				$('#ModalLabel').html(respones.name_dev)
+				$('#ModalNameDev').html(respones.name_dev)
+				var str = "Cost : " + respones.cost;
+				$('#ModalCostDev').html(str)
+				$('#ModalStorageDev').html(respones.storage)
+			},
+			error: (err) => { console.log(err) }
+		})
+	})
+</script>

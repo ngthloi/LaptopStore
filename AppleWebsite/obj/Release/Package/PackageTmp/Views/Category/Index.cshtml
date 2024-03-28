@@ -1,0 +1,146 @@
+﻿@model List<AppleWebsite.Models.Category>
+@{
+	ViewBag.Title = "Store";
+}
+<style>
+	.card {
+		transition: all 0.2s ease-in-out;
+	}
+
+		.card:hover {
+			transform: scale(1.02);
+			box-shadow: 0px 15px 15px rgb(128, 128, 120);
+		}
+		.card img{
+			aspect-ratio : 5/6;
+			object-fit:contain;
+		}
+	.owl-dots {
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 1;
+		overflow: hidden;
+	}
+	.card-title {
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+		overflow: hidden;
+	}
+	.owl-carousel span {
+		font-size: 26px;
+	}
+</style>
+<div style="height:560px;" id="carouselControls" class="carousel slide" data-mdb-ride="carousel" data-bs-ride="carousel">
+	<div class="carousel-inner ">
+		<div style="overflow:hidden;" class="carousel-item active ">
+			<div style="height:560px; background-image: url(/DeviceAppleImage/banner_ipad.jpg);background-position:center;background-size:contain;background-repeat:no-repeat">
+			</div>
+		</div>
+		<div style="overflow:hidden;" class="carousel-item">
+			<div style="height:560px; background-image: url(/DeviceAppleImage/banner_iphone.jpg);background-position:center;background-size:contain;background-repeat:no-repeat">
+			</div>
+
+		</div>
+		<div style="overflow:hidden;" class="carousel-item ">
+			<div style="height:560px; background-image: url(/DeviceAppleImage/banner_mac.jpg);background-position:center;background-size:contain;background-repeat:no-repeat">
+			</div>
+		</div>
+		<div style="overflow: hidden;" class="carousel-item ">
+			<div style="height:560px; background-image: url(/DeviceAppleImage/banner_watch.jpg);background-position:center;background-size:contain;background-repeat:no-repeat">
+			</div>
+		</div>
+		<div style="overflow: hidden;" class="carousel-item ">
+			<div style="height:560px; background-image: url(/DeviceAppleImage/banner_iphone2.jpg);background-position:center;background-size:contain;background-repeat:no-repeat">
+			</div>
+		</div>
+	</div>
+	<button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Previous</span>
+	</button>
+	<button class="carousel-control-next" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Next</span>
+	</button>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<div class="container-fluid">
+	@foreach (var item in Model)
+	{
+		<strong><a class="text-decoration-none text-dark text-uppercase  mt-5 ms-5 fw-bold display-5" href="@Url.Action("index",new {id= item.id_cate, controller="device"})">@item.name_cate</a></strong>
+		<div class="row ">
+			<div class="owl-carousel owl-theme px-5">
+				@foreach (var i in item.devices)
+				{
+					<div class="item " >
+						<div class="card p-4 m-5">
+								<img class="card-img-top img-fluid "  src="~/DeviceAppleImage/@item.name_cate/@i.img" alt="Alternate Text" />
+							<div class="card-body justify-content-between flex-column d-flex">
+								<h5 class="card-title h6   fw-bold " title="@i.name_dev">@i.name_dev</h5>
+								<p class="card-text h6 flex-grow-2">Cost: @i.cost.ToString("C")</p>
+							</div>
+							@Html.ActionLink("Buy", "details", new { id = i.id_dev, controller = "device" }, new { @class = "flex-grow-1 card-img-bottom btn btn-outline-secondary" })
+
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	}
+
+</div>
+<script>
+	$('.owl-carousel').owlCarousel({
+		loop: true,
+		margin: 10,
+		nav: true,
+		responsive: {
+			0: {
+				items: 1
+			},
+			600: {
+				items: 2
+			},
+			1200: {
+				items: 3
+			},
+			1500: {
+				items: 4
+			},
+			1800: {
+				items: 5
+			}
+		}
+	})
+</script>
+
+@*<div class="container">
+	@for (int i = 0; i < Model.Count; i++)
+	{
+		<strong><a class="text-decoration-none text-dark text-uppercase " href="~/device/@Model[i].id_cate">@Model[i].name_cate</a></strong>
+		<div class="col ">
+			<div class="row justify-content-evenly">
+				@{
+					int k = 0;
+				}
+				@foreach (var item in Model[i].devices)
+				{
+					if (k++ == 3)
+					{
+						break;
+					}
+					<div class=" card  p-2 mx-auto m-3  col-7 col-md-4 mx-md-2  col-lg-3 mx-lg-2 col-xl-3 mx-xl-4 col-xxl-2 mx-xxl-4" style="">
+						<img class="card-img-top" style="" src="~/DeviceAppleImage/@Model[i].name_cate/@item.img" alt="Alternate Text" />
+						<div class="card-body justify-content-between flex-column d-flex">
+							<h5 class="card-title h6">@item.name_dev</h5>
+							<p class="card-text h6">Cost: @item.cost.ToString("C")</p>
+							@Html.ActionLink("Buy", "details", new { id = item.id_dev, controller = "device" }, new { @class = "card-img-bottom btn btn-outline-secondary" })
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	}
+</div>*@
